@@ -1,9 +1,10 @@
 #include <iostream>
 #include <cstdlib>
+#include "windows.h"
 #define ALIVE '#'
 #define DEAD ' '
-#define ROWS 10
-#define COLS 10
+#define ROWS 6
+#define COLS 6
 
 using namespace std;
 
@@ -44,6 +45,8 @@ int main()
 				}
 			}
 		}
+		Sleep(400);
+		system("cls");
 		showArray(life);
 	}
     return 0;
@@ -51,30 +54,50 @@ int main()
 
 void initArray(char life[ROWS][COLS])
 {
-	int randomNumber = 0;
-	
-	for (int i = 0; i < ROWS; i++){
+//	int randomNumber = 0;
+//	
+//	for (int i = 0; i < ROWS; i++){
+//		for(int j = 0; j < COLS; j++){
+//		   	randomNumber = rand() % 100;		
+//    		if(randomNumber < 50){
+//    			life[i][j] = ALIVE;
+//    		}
+//    		else {
+//    			life[i][j] = DEAD;
+//    		}
+//    	}
+//    }
+
+	for(int i = 0; i < ROWS; i++){
 		for(int j = 0; j < COLS; j++){
-		   	randomNumber = rand() % 100;		
-    		if(randomNumber < 50){
-    			life[i][j] = ALIVE;
-    		}
-    		else {
-    			life[i][j] = DEAD;
-    		}
-    	}
-    }
+			life[i][j] = DEAD;
+		}
+	}
+	life[1][2] = ALIVE;
+	life[2][3] = ALIVE;
+	life[3][1] = ALIVE;
+	life[3][2] = ALIVE;
+	life[3][3] = ALIVE;
+
 }
 
 void showArray(char life[ROWS][COLS])
 {
+	for(int j = 0; j < COLS*2; j++){
+		cout << "-";
+	}
+	cout << endl;	
     for (int i = 0; i < ROWS; i++){
     	for(int j = 0; j < COLS; j++){
 	    	cout << life[i][j] << " "; 
 	    }
 	    cout << endl;
 	}	
-	cout << "-------------------" << endl;
+	
+	for(int j = 0; j < COLS*2; j++){
+		cout << "-";
+	}
+	cout << endl;	
 }
 
 void copyArray(char life[ROWS][COLS], char copy[ROWS][COLS])
@@ -215,9 +238,9 @@ int countAliveCells(char life[ROWS][COLS], int i, int j)
     		counter++;
 		if(life[i+1][j] == ALIVE)
     		counter++;
-    	if(life[i+1][COLS-1] == ALIVE)
+    	if(life[i+1][j-1] == ALIVE)
     		counter++;
-		if(life[i][COLS-1] == ALIVE)
+		if(life[i][j-1] == ALIVE)
     		counter++;
     	if(life[ROWS-1][j-1] == ALIVE)
     		counter++;
@@ -253,7 +276,7 @@ int countAliveCells(char life[ROWS][COLS], int i, int j)
     		counter++;
 		if(life[0][j] == ALIVE)
     		counter++;
-    	if(life[i+1][COLS-1] == ALIVE)
+    	if(life[0][COLS-1] == ALIVE)
     		counter++;
 		if(life[i][COLS-1] == ALIVE)
     		counter++;
